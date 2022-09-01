@@ -171,8 +171,9 @@
                 respComp ? respComp(respObj, originalObj) : nil;
             }else {
                 [CustomNetWorkCache getRespCacheWithURL:URLString parameters:parameters validTime:validTime completion:^(id  _Nullable cacheData) {
-                    cacheComp ? cacheComp([CustomNetWorkResponseObject createDataWithResponse:cacheData], [CustomNetWorkOriginalObject originalDataWithResponse:cacheData]) : nil;
-                    if (!cacheData) {//请求失败并没有数据缓存的情况下返回请求失败信息
+                    if (cacheData) {
+                        cacheComp ? cacheComp([CustomNetWorkResponseObject createDataWithResponse:cacheData], [CustomNetWorkOriginalObject originalDataWithResponse:cacheData]) : nil;
+                    }else{//请求失败并没有数据缓存的情况下返回请求失败信息
                         respComp ? respComp(respObj, originalObj) : nil;
                     }
                 }];
